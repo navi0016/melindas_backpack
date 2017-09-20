@@ -10,51 +10,49 @@ class Backpack
   end
 
   def prepare
-    # set up local variables used by rest of prepare method
-    x = @attributes[:weather]
+      appropriate_clothing
+      bring_gym_shoes
+      bring_packed_lunch
+  end
+
+
+  # Prints a summary packing list for Melinda's backpack
+  def melindas_backpack
+    packing_list = []
+    packing_list << "Melinda, here's your packing list!"
+    packing_list << "Day: #{@attributes[:day_of_week]}, Weather: #{@attributes[:weather]}"
+    packing_list << ""
+
+    @items.each do |item|
+      packing_list << "- #{item}"
+    end
+    packing_list.join("\n")
+  end
+
+  def appropriate_clothing
+    weather = @attributes[:weather]
+    day_of_week = @attributes[:day_of_week]
+    @items = ['pants','shirt']
+      if weather == 'rainy'
+        @items << 'umbrella'
+      elsif weather == 'cold'
+        @items << 'jacket'
+      end
+  end
+
+  def bring_gym_shoes
     day_of_week = @attributes[:day_of_week]
 
-    # Ensure appropriate clothing is added to backpack
-    if x == 'rainy'
-      @items << 'pants'
-      @items << 'shirt'
-      @items << 'umbrella'
-    elsif x == 'cold'
-      @items << 'pants'
-      @items << 'shirt'
-      @items << 'jacket'
-    else
-      @items << 'pants'
-      @items << 'shirt'
-    end
-
-    # Ensure gym shoes are added to backpack if it's a gym day
-    # Gotta get to the gym on Tuesdays and Thursdays. Wait a sec...
     if day_of_week == 'monday' || day_of_week == 'thursday'
-      #add gym shoes to items
       @items << 'gym shoes'
-    end
-
-    # Bring a packed lunch on all weekdays
-    if day_of_week != 'saturday' && day_of_week != 'sunday'
-      @items << 'packed lunch'
-    elsif false
-      # Used to bring snacks on weekend trips, but now I just buy 'em
-      @items << 'snacks'
     end
   end
 
-  # Prints a summary packing list for Melinda's backpack
-  def my_func
-    output = []
-    output << "Melinda, here's your packing list!"
-    output << "Day: #{@attributes[:day_of_week]}, Weather: #{@attributes[:weather]}"
-    output << ""
-
-    @items.each do |item|
-      output << "- #{item}"
+  def bring_packed_lunch
+    day_of_week = @attributes[:day_of_week]
+    if day_of_week != 'saturday' && day_of_week != 'sunday'
+      @items << 'packed lunch'
     end
-    output.join("\n")
   end
 
 end
